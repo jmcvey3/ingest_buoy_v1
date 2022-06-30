@@ -8,7 +8,7 @@ attrs:
     surface temperature, salinity, ocean currents, and wave data as well as near-surface
     air temperature, humidity, and horizontal wind speed and direction."
   location_id: morro
-  dataset_name: "buoy_z06"
+  dataset_name: buoy_z06
   qualifier: waves
   data_level: a1
   conventions: MHKiT-Cloud Data Standards v. 1.0
