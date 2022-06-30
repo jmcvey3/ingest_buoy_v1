@@ -1,0 +1,88 @@
+attrs:
+  title: "IMU Buoy Ingest"
+  description:
+    "Ingest of IMU data from an AXYS Technologies buoy stationed in Morro Bay, CA."
+  location_id: morro
+  dataset_name: buoy_z06
+  data_level: a1
+  qualifier: imu
+  # temporal:
+  # institution:
+
+coords:
+  time:
+    dims: [time]
+    dtype: datetime64[s]
+    attrs:
+      units: Seconds since 1970-01-01 00:00:00
+
+data_vars:
+  direction:
+    dims: [direction]
+    dtype: str
+    attrs:
+      long_name: Spatial Components
+      units: "1"
+
+  roll:
+    dims: [time]
+    dtype: double
+    attrs:
+      long_name: Roll
+      definition:
+        "The roll angle measures the side to side motion of the buoy between the
+        starboard and port side. The roll angle is measured in degrees around the
+        longitudinal axis of buoy that runs fore and aft. A roll angle of 0º means that
+        the buoy is flat with respect to the earth in the side to side direction. Buoy
+        rotation towards the starboard (right) side is a positive roll angle."
+      instrument: "MicroStrain, 3DM GX3 25 (Instrument # NA)"
+      units: degrees
+
+  pitch:
+    dims: [time]
+    dtype: double
+    attrs:
+      long_name: Pitch
+      definition:
+        "The pitch angle measures the front to back motion of the buoy fore and aft. The
+        pitch angle is measured in degrees around the lateral axis of buoy that runs
+        from port to starboard. A pitch angle of 0º means that the buoy is flat with
+        respect to the earth in the fore to aft direction. Buoy rotation towards the
+        fore (front) is a positive pitch angle."
+      instrument: "MicroStrain, 3DM GX3 25 (Instrument # NA)"
+      units: degrees
+
+  yaw:
+    dims: [time]
+    dtype: double
+    attrs:
+      long_name: Yaw
+      units: degrees
+
+  angular_velocity:
+    dims: [time, direction]
+    dtype: double
+    attrs:
+      long_name: Angular Velocity
+      units: degrees
+
+  acceleration:
+    dims: [time, direction]
+    dtype: double
+    attrs:
+      long_name: Acceleration
+      units: m/s^2
+
+  magnetic_field:
+    dims: [time, direction]
+    dtype: double
+    attrs:
+      long_name: Magnetic field strength
+      units: microTesla
+
+  pressure:
+    dims: [time]
+    dtype: double
+    attrs:
+      long_name: Pressure
+      units: kPa
