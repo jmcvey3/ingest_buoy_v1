@@ -46,6 +46,3 @@ data_vars:
         input_units: gauss
   pressure:
     name: pres
-    data_converters:
-      - classname: tsdat.io.converters.UnitsConverter
-        input_units: hPa

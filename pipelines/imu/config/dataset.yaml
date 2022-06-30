@@ -1,8 +1,9 @@
 attrs:
-  title: "IMU Buoy Ingest"
+  title: "IMU Buoy Pipeline"
   description:
     "Ingest of IMU data from an AXYS Technologies buoy stationed in Morro Bay, CA."
   location_id: morro
+  location_meaning: "Morro Bay, CA"
   dataset_name: buoy_z06
   data_level: a1
   qualifier: imu
@@ -85,4 +86,4 @@ data_vars:
     dtype: double
     attrs:
       long_name: Pressure
-      units: kPa
+      units: hPa
