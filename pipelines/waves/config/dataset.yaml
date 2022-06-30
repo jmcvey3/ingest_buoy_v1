@@ -1,21 +1,14 @@
 attrs:
-  title: "Wave Measurements from Buoy #130 at Morro Bay, CA"
+  title: "Wave Buoy Pipeline"
   description:
-    "Pacific Northwest National Laboratory (PNNL) manages this AXYS WindSentinelTM buoy
-    (Buoy #130) on behalf of the U.S. Department of Energy (DOE) that collect a
-    comprehensive set of meteorological and oceanographic (metocean) data to support
-    resource characterization for wind energy offshore. The buoy collects in-situ sea
-    surface temperature, salinity, ocean currents, and wave data as well as near-surface
-    air temperature, humidity, and horizontal wind speed and direction."
+    "Ingest of 20-minute averaged waves dat from an AXYS Technologies buoy in Morro Bay,
+    CA."
   location_id: morro
+  location_meaning: "Morro Bay, CA"
   dataset_name: buoy_z06
   qualifier: waves
   data_level: a1
-  conventions: MHKiT-Cloud Data Standards v. 1.0
-  institution: Pacific Northwest National Laboratory
-  code_url: https://github.com/a2edap/ingest-buoy
-  location_meaning: "Morro Bay, CA"
-  sampling_interval: 20 min
+  temporal: 20m
 
 coords:
   time:
