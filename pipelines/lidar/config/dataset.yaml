@@ -1,0 +1,54 @@
+attrs:
+  title: "Lidar Buoy Pipeline"
+  description:
+    "Ingest of Lidar data from an AXYS Technologies buoy stationed in Morro Bay, CA."
+  location_id: morro
+  location_meaning: "Morro Bay, CA"
+  dataset_name: buoy_z06
+  data_level: a1
+  qualifier: lidar
+  temporal: 10m
+  # institution:
+
+coords:
+  time:
+    dims: [time]
+    dtype: datetime64[s]
+    attrs:
+      units: Seconds since 1970-01-01 00:00:00
+  height:
+    data: [40, 60, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240]
+    dims: [height]
+    dtype: int
+    attrs:
+      long_name: Height ASL
+      units: m
+
+data_vars:
+  wind_speed:
+    dims: [time, height]
+    dtype: float
+    attrs:
+      long_name: Wind Speed
+      units: m/s
+
+  wind_direction:
+    dims: [time, height]
+    dtype: float
+    attrs:
+      long_name: Wind Direction
+      units: degrees
+
+  data_availability:
+    dims: [time, height]
+    dtype: float
+    attrs:
+      long_name: Availability
+      units: "%"
+
+  pressure:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Pressure
+      units: hPa
