@@ -2,8 +2,7 @@ import xarray as xr
 from pathlib import Path
 from tsdat import PipelineConfig, assert_close
 
-# DEVELOPER: Update paths to your configuration(s), test input(s), and expected test
-# results files.
+
 def test_metocean_pipeline():
     config_path = Path("pipelines/metocean/config/pipeline.yaml")
     config = PipelineConfig.from_yaml(config_path)

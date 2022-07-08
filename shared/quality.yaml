@@ -27,7 +27,7 @@ managers:
     checker:
       classname: tsdat.qc.checkers.CheckMissing
     handlers:
-      #- classname: tsdat.qc.handlers.RemoveFailedValues
+      - classname: tsdat.qc.handlers.RemoveFailedValues
       - classname: tsdat.qc.handlers.RecordQualityResults
         parameters:
           bit: 1
