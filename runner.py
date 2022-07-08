@@ -52,4 +52,4 @@ def run_pipeline(
 
 
 if __name__ == "__main__":
-    app()
+    app(["pipelines/lidar/test/data/input/lidar.z06.00.20201201.000000.sta.7z"])

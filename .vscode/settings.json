@@ -31,9 +31,7 @@
     "python.analysis.typeCheckingMode": "off",
     "python.testing.pytestEnabled": true,
     "python.testing.pytestArgs": [
-        "test",
-        "pipelines",
-        "-vv"
+        "."
     ],
     // 
     // Settings for helpful utilities
@@ -73,5 +71,6 @@
         "**/*.pyc": true,
         "**/.mypy_cache": true,
         "**/.pytest_cache": true,
-    }
+    },
+    "python.testing.unittestEnabled": false
 }
