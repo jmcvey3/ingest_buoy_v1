@@ -1,15 +1,11 @@
 classname: tsdat.io.retrievers.DefaultRetriever
 readers:
   .*:
-    classname: pipelines.imu.readers.CustomDataReader
+    classname: pipelines.imu.readers.IMUDataReader
 
 coords:
   time:
     name: time
-    data_converters:
-      - classname: tsdat.io.converters.StringToDatetime
-        format: "%Y-%m-%d %H:%M:%S"
-        timezone: UTC
   direction:
     name: space
 
@@ -36,13 +32,7 @@ data_vars:
         input_units: radians
   acceleration:
     name: accel
-    data_converters:
-      - classname: tsdat.io.converters.UnitsConverter
-        input_units: radians
   magnetic_field:
     name: mag
-    data_converters:
-      - classname: tsdat.io.converters.UnitsConverter
-        input_units: gauss
   pressure:
     name: pres

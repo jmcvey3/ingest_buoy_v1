@@ -1,8 +1,7 @@
 classname: pipelines.imu.pipeline.Imu
 
 triggers:
-  # DEVELOPER: Update regex patterns that should trigger this pipeline
-  - .*morro.*\.csv
+  - .*imu.bin
 
 retriever:
   path: pipelines/imu/config/retriever.yaml

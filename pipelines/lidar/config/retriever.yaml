@@ -1,22 +1,30 @@
 classname: tsdat.io.retrievers.DefaultRetriever
 readers:
   .*:
-    classname: pipelines.lidar.readers.CustomDataReader
+    classname: pipelines.lidar.readers.STADataReader
 
 coords:
   time:
     name: Timestamp (end of interval)
     data_converters:
       - classname: tsdat.io.converters.StringToDatetime
-        format: "%Y-%m-%d %H:%M:%S"
+        format: "%Y-%m-%d %H:%M"
         timezone: UTC
+  height:
+    name: height
 
 data_vars:
   wind_speed:
     name: wind_speed
   wind_direction:
     name: wind_direction
+  wind_speed_vertical:
+    name: wind_speed_vertical
+  carrier_noise_ratio:
+    name: carrier_noise_ratio
+  doppler_spectral_broadening:
+    name: doppler_spectral_broadening
   data_availability:
     name: data_availability
   pressure:
-    name: pressure
+    name: Pressure (hPa)

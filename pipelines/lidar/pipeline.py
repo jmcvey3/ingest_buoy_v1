@@ -9,33 +9,17 @@ from utils import add_colorbar, format_time_xticks
 
 
 class Lidar(IngestPipeline):
-    """---------------------------------------------------------------------------------
-    This is an example ingestion pipeline meant to demonstrate how one might set up a
-    pipeline using this template repository.
+    """--------------------------------------------------------------------------------
+    LIDAR INGESTION PIPELINE
 
-    ---------------------------------------------------------------------------------"""
+    Ingest of Lidar data from an AXYS Technologies buoy stationed off the coast of
+    Humboldt, CA.
 
-    def hook_customize_dataset(
-        self, dataset: xr.Dataset, raw_mapping: Dict[str, xr.Dataset]
-    ) -> xr.Dataset:
-        # Compress row of variables in input into variables dimensioned by time and height
-        for raw_filename, raw_dataset in raw_mapping.items():
-            if ".sta" in raw_filename:
-                raw_categories = [
-                    "Wind Speed (m/s)",
-                    "Wind Direction (°)",
-                    "Data Availability (%)",
-                ]
-                output_var_names = ["wind_speed", "wind_direction", "data_availability"]
-                heights = dataset.height.data
-                for category, output_name in zip(raw_categories, output_var_names):
-                    var_names = [f"{height}m {category}" for height in heights]
-                    var_data = [raw_dataset[name].data for name in var_names]
-                    var_data = np.array(var_data).transpose()
-                    dataset[output_name].data = var_data
+    --------------------------------------------------------------------------------"""
 
-        # Apply correction to buoy at morro bay -- wind direction is off by 180 degrees
-        if "morro" in dataset.attrs["datastream_name"]:
+    def hook_customize_dataset(self, dataset: xr.Dataset) -> xr.Dataset:
+        # (Optional) Use this hook to modify the dataset before qc is applied
+        if "morro" in dataset.attrs["location_id"]:
             new_direction = dataset["wind_direction"].data + 180
             new_direction[new_direction >= 360] -= 360
             dataset["wind_direction"].data = new_direction
@@ -145,4 +129,3 @@ class Lidar(IngestPipeline):
             )
             fig.savefig(tmp_dir / plot_file)
             plt.close(fig)
-        pass

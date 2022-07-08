@@ -1,0 +1,24 @@
+classname: tsdat.io.retrievers.DefaultRetriever
+readers:
+  .*:
+    classname: pipelines.metocean.readers.CustomDataReader
+
+coords:
+  time:
+    # Mapping of regex pattern (matching input key/file) to input name & converter(s) to
+    # run. The default is .*, which matches everything. Put the most specific patterns
+    # first because searching happens top -> down and stops at the first match.
+    .*:
+      name: Timestamp (end of interval)
+      data_converters:
+        - classname: tsdat.io.converters.StringToDatetime
+          format: "%Y-%m-%d %H:%M:%S"
+          timezone: UTC
+
+data_vars:
+  example_var:
+    .*:
+      name: Example
+      data_converters:
+        - classname: tsdat.io.converters.UnitsConverter
+          input_units: km

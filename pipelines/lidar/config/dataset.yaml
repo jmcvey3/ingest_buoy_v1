@@ -16,8 +16,8 @@ coords:
     dtype: datetime64[s]
     attrs:
       units: Seconds since 1970-01-01 00:00:00
+
   height:
-    data: [40, 60, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240]
     dims: [height]
     dtype: int
     attrs:
@@ -38,6 +38,27 @@ data_vars:
     attrs:
       long_name: Wind Direction
       units: degrees
+
+  wind_speed_vertical:
+    dims: [time, height]
+    dtype: float
+    attrs:
+      long_name: Wind Speed Vertical
+      units: m/s
+
+  carrier_noise_ratio:
+    dims: [time, height]
+    dtype: float
+    attrs:
+      long_name: Carrier to Noise Ratio (CNR)
+      units: dB
+
+  doppler_spectral_broadening:
+    dims: [time, height]
+    dtype: float
+    attrs:
+      long_name: Doppler Spectral Broadening
+      units: m/s
 
   data_availability:
     dims: [time, height]

@@ -1,8 +1,7 @@
 classname: pipelines.lidar.pipeline.Lidar
 
 triggers:
-  # DEVELOPER: Update regex patterns that should trigger this pipeline
-  - .*morro.*\.csv
+  - .*sta.7z
 
 retriever:
   path: pipelines/lidar/config/retriever.yaml

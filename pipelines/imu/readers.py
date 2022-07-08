@@ -198,7 +198,7 @@ def extract_data(filename: str, packet: Dict[str, Dict]) -> xr.Dataset:
     return xr.Dataset.from_dict(dictionary)
 
 
-class ImuFileHandler(DataReader):
+class IMUDataReader(DataReader):
     class Parameters(BaseModel, extra=Extra.forbid):
         """If your CustomDataReader should take any additional arguments from the
         retriever configuration file, then those should be specified here.

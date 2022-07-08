@@ -13,11 +13,10 @@ attrs:
 coords:
   time:
     dims: [time]
-    dtype: datetime64[s]
+    dtype: datetime64[ns]
     attrs:
       units: Seconds since 1970-01-01 00:00:00
 
-data_vars:
   direction:
     dims: [direction]
     dtype: str
@@ -25,18 +24,15 @@ data_vars:
       long_name: Spatial Components
       units: "1"
 
+data_vars:
   roll:
     dims: [time]
     dtype: double
     attrs:
       long_name: Roll
       definition:
-        "The roll angle measures the side to side motion of the buoy between the
-        starboard and port side. The roll angle is measured in degrees around the
-        longitudinal axis of buoy that runs fore and aft. A roll angle of 0º means that
-        the buoy is flat with respect to the earth in the side to side direction. Buoy
-        rotation towards the starboard (right) side is a positive roll angle."
-      instrument: "MicroStrain, 3DM GX3 25 (Instrument # NA)"
+        "Rotation angle towards starboard (positive) and port (negative) sides of buoy"
+      instrument: "MicroStrain 3DM GX3 25"
       units: degrees
 
   pitch:
@@ -45,12 +41,8 @@ data_vars:
     attrs:
       long_name: Pitch
       definition:
-        "The pitch angle measures the front to back motion of the buoy fore and aft. The
-        pitch angle is measured in degrees around the lateral axis of buoy that runs
-        from port to starboard. A pitch angle of 0º means that the buoy is flat with
-        respect to the earth in the fore to aft direction. Buoy rotation towards the
-        fore (front) is a positive pitch angle."
-      instrument: "MicroStrain, 3DM GX3 25 (Instrument # NA)"
+        "Rotation angle towards bow (positive) and aft (negative) sides of buoy"
+      instrument: "MicroStrain 3DM GX3 25"
       units: degrees
 
   yaw:
@@ -79,7 +71,7 @@ data_vars:
     dtype: double
     attrs:
       long_name: Magnetic field strength
-      units: microTesla
+      units: gauss
 
   pressure:
     dims: [time]

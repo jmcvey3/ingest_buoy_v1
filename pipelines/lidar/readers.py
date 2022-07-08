@@ -2,7 +2,9 @@ from typing import Dict, Union
 from pydantic import BaseModel, Extra
 import xarray as xr
 import pandas as pd
+import numpy as np
 import lzma
+
 from tsdat import DataReader
 
 
@@ -45,4 +47,37 @@ class STADataReader(DataReader):
             mode="rt",
         )
         df = pd.read_csv(lzma_file, header=41, index_col=False, sep="\t",)
-        return df.to_xarray()
+        dataset = df.to_xarray()
+
+        # Add height variable
+        dataset["height"] = xr.DataArray(
+            data=[40, 60, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240], dims="height"
+        )
+
+        # Compress row of variables in input into variables dimensioned by time and height
+        if ".sta" in filename:
+            raw_categories = [
+                "Wind Speed (m/s)",
+                "Wind Direction (°)",
+                "Data Availability (%)",
+                "Z-wind (m/s)",
+                "CNR (dB)",
+                "Dopp Spect Broad (m/s)",
+            ]
+            output_var_names = [
+                "wind_speed",
+                "wind_direction",
+                "data_availability",
+                "wind_speed_vertical",
+                "carrier_noise_ratio",
+                "doppler_spectral_broadening",
+            ]
+            heights = dataset.height.data
+            for category, output_name in zip(raw_categories, output_var_names):
+                var_names = [f"{height}m {category}" for height in heights]
+                var_data = [dataset[name].data for name in var_names]
+                dataset = dataset.drop(var_names)
+                var_data = np.array(var_data).transpose()
+                dataset[output_name] = xr.DataArray(var_data, dims=["index", "height"])
+
+        return dataset

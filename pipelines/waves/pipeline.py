@@ -6,12 +6,14 @@ from utils import format_time_xticks
 from cmocean.cm import amp_r, dense, haline
 
 
-class ExamplePipeline(IngestPipeline):
-    """---------------------------------------------------------------------------------
-    This is an example ingestion pipeline meant to demonstrate how one might set up a
-    pipeline using this template repository.
+class Waves(IngestPipeline):
+    """--------------------------------------------------------------------------------
+    WAVES INGEST INGESTION PIPELINE
 
-    ---------------------------------------------------------------------------------"""
+    Ingest of 20-minute averaged waves dat from an AXYS Technologies buoy in Humboldt Bay,
+    CA.
+
+    --------------------------------------------------------------------------------"""
 
     def hook_plot_dataset(self, dataset: xr.Dataset):
         ds = dataset

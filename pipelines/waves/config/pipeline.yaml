@@ -1,13 +1,13 @@
-classname: pipelines.example_pipeline.pipeline.ExamplePipeline
+classname: pipelines.waves.pipeline.Waves
 
 triggers:
-  - .*example_pipeline.*\.csv
+  - .*waves.csv
 
 retriever:
-  path: pipelines/example_pipeline/config/retriever.yaml
+  path: pipelines/waves/config/retriever.yaml
 
 dataset:
-  path: pipelines/example_pipeline/config/dataset.yaml
+  path: pipelines/waves/config/dataset.yaml
 
 quality:
   path: shared/quality.yaml
