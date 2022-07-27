@@ -162,42 +162,35 @@ class Metocean(IngestPipeline):
 
             # Create the third plot - current velocities
         with self.storage.uploadable_dir(datastream) as tmp_dir:
-            ds_1H: xr.Dataset = ds.reindex({"depth": ds.depth.data[::2]})
-            ds_1H = ds_1H.resample(time="1H").nearest()
-
-            # Calculate U&V components of wind vector for a subset of data
-            idx = slice(1, None)
-            qv_degrees = ds_1H.current_direction.data[idx, idx].transpose()
-            qv_theta = (qv_degrees + 90) * (np.pi / 180)
-            X, Y = ds_1H.time.data[idx], ds_1H.depth.data[idx]
-            U, V = np.cos(-qv_theta), np.sin(-qv_theta)
-
-            fig, ax = plt.subplots()
-            csf = ds.current_speed.plot.contourf(
-                ax=ax,
-                x="time",
-                yincrease=False,
-                levels=30,
-                cmap=cmocean.cm.deep_r,
-                add_colorbar=False,
+            fig, ax = plt.subplots(
+                nrows=2, ncols=1, figsize=(14, 8), constrained_layout=True
             )
-            ax.quiver(
-                X,
-                Y,
-                U,
-                V,
-                width=0.002,
-                scale=60,
-                color="white",
-                pivot="middle",
-                zorder=10,
-            )
-
             fig.suptitle(f"Current Speed and Direction at {location} on {date} {time}")
-            add_colorbar(ax, csf, r"Current Speed (mm s$^{-1}$)")
-            format_time_xticks(ax)
-            ax.set_xlabel("Time (UTC)")
-            ax.set_ylabel("Depth (m)")
+
+            date = pd.to_datetime(ds["time"].values)
+            magn = ax[0].pcolormesh(
+                date,
+                -ds["depth"],
+                ds["current_speed"],
+                cmap="Blues",
+                shading="nearest",
+            )
+            ax[0].set_xlabel("Time (UTC)")
+            ax[0].set_ylabel(r"Range [m]")
+            format_time_xticks(ax[0])
+            add_colorbar(ax[0], magn, r"Current Speed (m s$^{-1}$)")
+
+            dirc = ax[1].pcolormesh(
+                date,
+                -ds["depth"],
+                ds["current_direction"],
+                cmap="twilight",
+                shading="nearest",
+            )
+            ax[1].set_xlabel("Time (UTC)")
+            ax[1].set_ylabel(r"Depth [m]")
+            format_time_xticks(ax[1])
+            add_colorbar(ax[1], dirc, r"Direction [deg from N]")
 
             plot_file = get_filename(dataset, title="current_velocity", extension="png")
             fig.savefig(tmp_dir / plot_file)

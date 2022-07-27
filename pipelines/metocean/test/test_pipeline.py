@@ -10,7 +10,7 @@ def test_metocean_pipeline():
 
     test_file = "pipelines/metocean/test/data/input/buoy.z06.00.20201201.000000.zip"
     expected_file = (
-        "pipelines/metocean/test/data/expected/abc.example.a1.20220424.000000.nc"
+        "pipelines/metocean/test/data/expected/morro.buoy_z06-10m.a1.20201201.000000.nc"
     )
 
     dataset = pipeline.run([test_file])

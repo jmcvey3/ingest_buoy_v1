@@ -52,4 +52,4 @@ def run_pipeline(
 
 
 if __name__ == "__main__":
-    app()
+    app(["pipelines/metocean/test/data/input/buoy.z06.00.20201201.000000.zip"])

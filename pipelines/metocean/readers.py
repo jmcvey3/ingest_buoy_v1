@@ -68,17 +68,17 @@ class BuoyReader(DataReader):
                 i += 1
 
             depth = np.array(depth)  # type: ignore
-            vel_data = np.array(vel_data).transpose()  # type: ignore
-            dir_data = np.array(dir_data).transpose()  # type: ignore
+            vel_data = np.array(vel_data)  # type: ignore
+            dir_data = np.array(dir_data)  # type: ignore
 
             # Make depth coordinate variables
             ds["depth"] = xr.DataArray(data=depth, dims=["depth"])
             ds = ds.set_coords("depth")
 
             # Add current velocity and direction data to dataset
-            ds["current_speed"] = xr.DataArray(data=vel_data, dims=["time", "depth"])
+            ds["current_speed"] = xr.DataArray(data=vel_data, dims=["depth", "time"])
             ds["current_direction"] = xr.DataArray(
-                data=dir_data, dims=["time", "depth"]
+                data=dir_data, dims=["depth", "time"]
             )
 
         return ds
