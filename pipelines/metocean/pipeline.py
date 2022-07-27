@@ -62,7 +62,7 @@ class Metocean(IngestPipeline):
             double_plot(
                 axs[0],
                 twins[0],
-                data=[ds.gill_wind_speed, ds.gill_wind_direction],
+                data=[ds.wind_speed_gill, ds.wind_direction_gill],
                 colors=colors,
                 var_labels=[
                     r"$\overline{\mathrm{U}}$ Gill",
@@ -88,7 +88,7 @@ class Metocean(IngestPipeline):
             double_plot(
                 axs[1],
                 twins[1],
-                data=[ds.pressure, ds.rh],
+                data=[ds.pressure, ds.relative_humidity],
                 colors=colors,
                 var_labels=["Pressure", "Relative Humidity"],
                 ax_labels=[
@@ -99,7 +99,7 @@ class Metocean(IngestPipeline):
             double_plot(
                 axs[2],
                 twins[2],
-                data=[ds.air_temperature, ds.CTD_SST],
+                data=[ds.air_temperature, ds.sea_surface_temperature_YSI],
                 colors=colors,
                 var_labels=["Air Temperature", "Sea Surface Temperature"],
                 ax_labels=[
@@ -134,7 +134,7 @@ class Metocean(IngestPipeline):
             double_plot(
                 ax,
                 twin,
-                data=[ds.conductivity, ds.CTD_SST],
+                data=[ds.conductivity, ds.sea_surface_temperature_CTD],
                 colors=colors,
                 var_labels=[
                     r"Conductivity (S m$^{-1}$)",
@@ -146,7 +146,9 @@ class Metocean(IngestPipeline):
                 ],
             )
 
-            fig.suptitle(f"Conductivity and Sea Surface Temperature at {location} on {date}")
+            fig.suptitle(
+                f"Conductivity and Sea Surface Temperature at {location} on {date}"
+            )
             format_time_xticks(ax)
             ax.set_xlabel("Time (UTC)")
             ax.grid(which="both", color="lightgray", linewidth=0.5)
@@ -159,8 +161,9 @@ class Metocean(IngestPipeline):
             plt.close(fig)
 
             # Create the third plot - current velocities
+        with self.storage.uploadable_dir(datastream) as tmp_dir:
             ds_1H: xr.Dataset = ds.reindex({"depth": ds.depth.data[::2]})
-            ds_1H: xr.Dataset = ds_1H.resample(time="1H").nearest()
+            ds_1H = ds_1H.resample(time="1H").nearest()
 
             # Calculate U&V components of wind vector for a subset of data
             idx = slice(1, None)

@@ -1,24 +1,56 @@
 classname: tsdat.io.retrievers.DefaultRetriever
 readers:
   .*:
-    classname: pipelines.metocean.readers.CustomDataReader
+    classname: tsdat.io.readers.ZipReader
+    parameters:
+      readers:
+        buoy:
+          classname: pipelines.metocean.readers.BuoyReader
 
 coords:
   time:
-    # Mapping of regex pattern (matching input key/file) to input name & converter(s) to
-    # run. The default is .*, which matches everything. Put the most specific patterns
-    # first because searching happens top -> down and stops at the first match.
-    .*:
-      name: Timestamp (end of interval)
-      data_converters:
-        - classname: tsdat.io.converters.StringToDatetime
-          format: "%Y-%m-%d %H:%M:%S"
-          timezone: UTC
+    name: DataTimeStamp
+    data_converters:
+      - classname: tsdat.io.converters.StringToDatetime
+        format: "%Y-%m-%d %H:%M:%S"
+        timezone: UTC
+  depth:
+    name: depth
 
 data_vars:
-  example_var:
-    .*:
-      name: Example
-      data_converters:
-        - classname: tsdat.io.converters.UnitsConverter
-          input_units: km
+  sea_surface_temperature_CTD:
+    name: "Surface Temperature (C)"
+  conductivity:
+    name: "Conductivity (Siemens/m)"
+  current_speed:
+    name: current_speed
+    data_converters:
+      - classname: tsdat.io.converters.UnitsConverter
+        input_units: mm/s
+  current_direction:
+    name: current_direction
+  wind_speed_gill:
+    name: gill_horizontal_wind_speed
+  wind_direction_gill:
+    name: gill_horizontal_wind_direction
+  wind_speed:
+    name: Horizontal Speed (m/s)
+  wind_direction:
+    name: Horizontal Direction (deg)
+  pressure:
+    name: Barometric Pressure (mb)
+    data_converters:
+      - classname: tsdat.io.converters.UnitsConverter
+        input_units: mbar
+  solar_radiation:
+    name: Solar Radiation (W/m^2)
+  relative_humidity:
+    name: Relative Humidity (%)
+  sea_surface_temperature_YSI:
+    name: surfacetemp - Surface Temperature (C)
+  air_temperature:
+    name: Air Temperature (C)
+  latitude:
+    name: Latitude
+  longitude:
+    name: Longitude

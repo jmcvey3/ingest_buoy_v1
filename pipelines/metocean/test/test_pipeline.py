@@ -8,7 +8,7 @@ def test_metocean_pipeline():
     config = PipelineConfig.from_yaml(config_path)
     pipeline = config.instantiate_pipeline()
 
-    test_file = "pipelines/metocean/test/data/input/morro_data.csv"
+    test_file = "pipelines/metocean/test/data/input/buoy.z06.00.20201201.000000.zip"
     expected_file = (
         "pipelines/metocean/test/data/expected/abc.example.a1.20220424.000000.nc"
     )

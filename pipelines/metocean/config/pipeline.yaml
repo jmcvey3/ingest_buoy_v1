@@ -1,8 +1,7 @@
 classname: pipelines.metocean.pipeline.Metocean
 
 triggers:
-  # DEVELOPER: Update regex patterns that should trigger this pipeline
-  - .*morro.*\.csv
+  - .*buoy.*\.zip
 
 retriever:
   path: pipelines/metocean/config/retriever.yaml

@@ -25,13 +25,13 @@ coords:
       units: m
 
 data_vars:
-  CTD_SST:
+  sea_surface_temperature_CTD:
     dims: [time]
     dtype: float
     attrs:
       long_name: Sea surface temperature
       units: degC
-      fail_range: [-5, 45]
+      valid_range: [-5, 45]
 
   conductivity:
     dims: [time]
@@ -39,45 +39,21 @@ data_vars:
     attrs:
       long_name: Ocean Conductivity
       units: S/m
-      fail_range: [0, 7]
-
-  currents_bin_spacing:
-    dims: [time]
-    dtype: float
-    attrs:
-      long_name: Vertical Spacing Between Bins
-      units: m
-
-  currents_head_depth:
-    dims: [time]
-    dtype: float
-    attrs:
-      long_name: depth of instrument below ocean surface
-      units: m
-
-  currents_blanking_distance:
-    dims: [time]
-    dtype: float
-    attrs:
-      long_name: Blanking Distance
-      comment:
-        a "blind zone" where the instruments do not measure anything. Typically less
-        than 1m.
-      units: m
+      valid_range: [0, 7]
 
   # This is a computed value, but the computation is now done in
-  # a hook prior to dataset standardization, so it is considered
+  # the reader prior to dataset standardization, so it is considered
   # to have input.
   current_speed:
     dtype: float
     dims: [time, depth]
     attrs:
       long_name: Current Speed
-      units: mm/s
-      fail_range: [0, 10000]
+      units: m/s
+      valid_range: [0, 10]
 
   # This is a computed value, but the computation is now done in
-  # a hook prior to dataset standardization, so it is considered
+  # the reader prior to dataset standardization, so it is considered
   # to have input.
   current_direction:
     dtype: float
@@ -85,7 +61,7 @@ data_vars:
     attrs:
       long_name: Current Direction
       units: degrees
-      fail_range: [0, 360]
+      valid_range: [0, 360]
 
   wind_speed_gill:
     dims: [time]
@@ -94,7 +70,7 @@ data_vars:
       long_name: Horizontal Wind Speed
       comment: Surface horizontal wind speed, 2D ultrasonic anemometer
       units: m/s
-      fail_range: [0, 50]
+      valid_range: [0, 50]
 
   wind_direction_gill:
     dims: [time]
@@ -103,7 +79,7 @@ data_vars:
       long_name: Horizontal Wind Direction
       comment: Surface horizontal wind direction, 2D ultrasonic anemometer
       units: degrees
-      fail_range: [0, 360]
+      valid_range: [0, 360]
 
   wind_speed:
     dims: [time]
@@ -112,7 +88,7 @@ data_vars:
       long_name: Horizontal Wind Speed
       comment: Surface wind speed, cup anemometer
       units: m/s
-      fail_range: [0, 50]
+      valid_range: [0, 50]
 
   wind_direction:
     dims: [time]
@@ -121,7 +97,7 @@ data_vars:
       long_name: Horizontal Wind Direction
       comment: Surface wind direction, wind vane
       units: degrees
-      fail_range: [0, 360]
+      valid_range: [0, 360]
 
   pressure:
     dims: [time]
@@ -129,7 +105,14 @@ data_vars:
     attrs:
       long_name: Atmospheric Pressure
       units: hPa
-      fail_range: [500, 1100]
+      valid_range: [500, 1100]
+
+  solar_radiation:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Solar Radiation
+      units: (W/m^2)
 
   relative_humidity:
     dims: [time]
@@ -137,21 +120,21 @@ data_vars:
     attrs:
       long_name: Relative Humidity
       units: "%"
-      fail_range: [0, 100]
+      valid_range: [0, 100]
 
   # Note that this variable had the same name as Surface Temperature from
   # conductivity csv. It has been renamed to prevent a conflict, but the
   # user will need to write the customize_raw_dataset() hook to rename the
   # raw input from "Surface Temperature (C)" to "surfacetemp - Surface
   # Temperature (C)" so that the code can still retrieve it properly
-  sea_surface_temperature:
+  sea_surface_temperature_YSI:
     dims: [time]
     dtype: float
     attrs:
       long_name: Sea Surface Temperature
       comment: This is from the surfacetemp.csv file.
       units: degC
-      fail_range: [-5, 50]
+      valid_range: [-5, 50]
 
   air_temperature:
     dims: [time]
@@ -159,7 +142,7 @@ data_vars:
     attrs:
       long_name: Air Temperature
       units: degC
-      fail_range: [-40, 60]
+      valid_range: [-40, 60]
 
   latitude:
     dims: [time]
